@@ -5,6 +5,7 @@ bool valid_parentheses(const string &expression);
 int get_level_of_priority(const char& c);
 bool is_operator(const char& c);
 bool is_sqrt(const string& expression, size_t i);
+bool is_log(const string& expression, size_t i);
 
 vector<variant<int, double, char>> convert_to_rpn(const string &expression) {
     if (!valid_parentheses(expression)) {
@@ -57,13 +58,20 @@ vector<variant<int, double, char>> convert_to_rpn(const string &expression) {
                 operations.pop_back();
             }
             operations.pop_back();
-        } else if (is_operator(expression[i]) || is_sqrt(expression, i)) {
+        } else if (is_operator(expression[i]) || is_sqrt(expression, i) || is_log(expression, i)) {
             while (operations.size() > 0 && get_level_of_priority(operations.back()) >= get_level_of_priority(expression[i])) {
                 rpn_expression.push_back(operations.back());
                 operations.pop_back();
             }
-            operations.push_back(expression[i]);
-            if (expression[i] == 's') i += 3;
+
+            if (expression[i + 1] != 'n') {
+                operations.push_back(expression[i]);
+                if (expression[i] == 's') i += 3;
+                else if (expression[i] == 'l') i += 2;
+            } else {
+                operations.push_back(expression[i + 1]);
+                i++;
+            }
         } else {
             cout << "Invalid character " << expression[i] << " in expression.\n";
             exit(1);
@@ -110,4 +118,8 @@ bool is_operator(const char& c) {
 
 bool is_sqrt(const string& expression, size_t i) {
     return expression.find("sqrt", i) == i;
+}
+
+bool is_log(const string& expression, size_t i) {
+    return expression.find("log", i) == i || expression.find("ln", i) == i;
 }
