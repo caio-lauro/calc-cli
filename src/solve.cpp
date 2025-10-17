@@ -25,6 +25,20 @@ double solve_rpn(const vector<variant<int, double, char>>& rpn_expression) {
                 continue;
             }
 
+            if (c == 'l' && stack.size() == 1) {
+                const auto back = stack.back();
+                stack.pop_back();
+                stack.push_back(log10(back));
+                continue;
+            }
+            
+            if (c == 'n' && stack.size() == 1) {
+                const auto back = stack.back();
+                stack.pop_back();
+                stack.push_back(log(back));
+                continue;
+            }
+
             if (c == '-' && stack.size() == 1) {
                 const auto back = stack.back();
                 stack.pop_back();
