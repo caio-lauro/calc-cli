@@ -1,11 +1,8 @@
 #include "../include/convert.h"
+#include "../include/operator.h"
 #include "../include/constants.h"
 
 bool valid_parentheses(const string &expression);
-int get_level_of_priority(const char& c);
-bool is_operator(const char& c);
-bool is_sqrt(const string& expression, size_t i);
-bool is_log(const string& expression, size_t i);
 
 vector<variant<int, double, char>> convert_to_rpn(const string &expression) {
     if (!valid_parentheses(expression)) {
@@ -97,29 +94,4 @@ bool valid_parentheses(const string &expression) {
     }
 
     return count == 0;
-}
-
-int get_level_of_priority(const char& c) {
-    switch (c) {
-        case '+': case '-':
-            return 1;
-        case '*': case '/': case '%':
-            return 2;
-        case '^': case 's':
-            return 3;
-        default:
-            return 0;
-    }
-}
-
-bool is_operator(const char& c) {
-    return get_level_of_priority(c) != 0;
-}
-
-bool is_sqrt(const string& expression, size_t i) {
-    return expression.find("sqrt", i) == i;
-}
-
-bool is_log(const string& expression, size_t i) {
-    return expression.find("log", i) == i || expression.find("ln", i) == i;
 }
