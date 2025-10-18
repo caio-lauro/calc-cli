@@ -14,10 +14,10 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    string expression = get_expression(argc, argv);
-    vector<variant<int, double, char>> rpn_expression = convert_to_rpn(expression);
+    const string expression = get_expression(argc, argv);
+    const vector<variant<int, double, char>> rpn_expression = convert_to_rpn(expression);
 
-    double result = solve_rpn(rpn_expression);
+    const double result = solve_rpn(rpn_expression);
     if ((int)result == result) { 
         cout << (int)result;
     } else {
