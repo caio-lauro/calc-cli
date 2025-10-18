@@ -3,7 +3,9 @@
 
 #include <numbers>
 
-#define PI std::numbers::pi
-#define e std::numbers::e
+using namespace std::numbers;
+
+#define PI numbers::pi
+#define e numbers::e
 
 #endif
