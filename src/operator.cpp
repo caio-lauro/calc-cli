@@ -17,10 +17,10 @@ bool is_operator(const char& c) {
     return get_level_of_priority(c) != 0;
 }
 
-bool is_sqrt(const string& expression, size_t i) {
+bool is_sqrt(const string& expression, const size_t i) {
     return expression.find("sqrt", i) == i;
 }
 
-bool is_log(const string& expression, size_t i) {
+bool is_log(const string& expression, const size_t i) {
     return expression.find("log", i) == i || expression.find("ln", i) == i;
 }
