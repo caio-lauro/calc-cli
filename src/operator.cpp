@@ -8,10 +8,10 @@ int get_level_of_priority(const char& c) {
             return 2;
         case '^': case 'r':
             return 3;
-        case 'l': case 'n':
-            return 4;
         case 's': case 'c': case 't':
-            return 99;
+            return 4;
+        case 'l': case 'n':
+            return 5;
     }
 
     return 0;
