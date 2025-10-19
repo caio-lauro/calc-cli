@@ -6,9 +6,6 @@
 using namespace std;
 
 int get_level_of_priority(const char& c);
-bool is_operator(const char& c);
-bool is_sqrt(const string& expression, size_t i);
-bool is_log(const string& expression, size_t i);
-
+char get_operator_type(const string& expression, const size_t i);
 
 #endif
