@@ -55,23 +55,34 @@ vector<variant<int, double, char>> convert_to_rpn(const string &expression) {
                 operations.pop_back();
             }
             operations.pop_back();
-        } else if (is_operator(expression[i]) || is_sqrt(expression, i) || is_log(expression, i)) {
-            while (operations.size() > 0 && get_level_of_priority(operations.back()) >= get_level_of_priority(expression[i])) {
+        } else {
+            const char operator_type = get_operator_type(expression, i);
+            if (operator_type == '\0') {
+                cout << "Invalid character " << expression[i] << " in expression.\n";
+                exit(1);
+            }
+
+            const int operator_priority = get_level_of_priority(operator_type);
+
+            while (!operations.empty() && get_level_of_priority(operations.back()) >= operator_priority) {
                 rpn_expression.push_back(operations.back());
                 operations.pop_back();
             }
+            operations.push_back(operator_type);
 
-            if (expression[i + 1] != 'n') {
-                operations.push_back(expression[i]);
-                if (expression[i] == 's') i += 3;
-                else if (expression[i] == 'l') i += 2;
-            } else {
-                operations.push_back(expression[i + 1]);
-                i++;
+            switch (operator_type) {
+                case 'r':
+                    i += 3;
+                    break;
+                
+                case 'l': case 's': case 'c': case 't':
+                    i += 2;
+                    break;
+
+                case 'n':
+                    i++;
+                    break;
             }
-        } else {
-            cout << "Invalid character " << expression[i] << " in expression.\n";
-            exit(1);
         }
     }
 
