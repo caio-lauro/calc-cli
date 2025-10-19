@@ -18,49 +18,49 @@ double solve_rpn(const vector<variant<int, double, char>>& rpn_expression) {
         else {
             char c = get<char>(token);
             
-            if (c == 'r' && stack.size() == 1) {
+            if (c == 'r') {
                 const auto back = stack.back();
                 stack.pop_back();
                 stack.push_back(sqrt(back));
                 continue;
             }
 
-            if (c == 'l' && stack.size() == 1) {
+            if (c == 'l') {
                 const auto back = stack.back();
                 stack.pop_back();
                 stack.push_back(log10(back));
                 continue;
             }
             
-            if (c == 'n' && stack.size() == 1) {
+            if (c == 'n') {
                 const auto back = stack.back();
                 stack.pop_back();
                 stack.push_back(log(back));
                 continue;
             }
 
-            if (c == 's' && stack.size() == 1) {
+            if (c == 's') {
                 const auto back = stack.back();
                 stack.pop_back();
                 stack.push_back(sin(back));
                 continue;
             }
 
-            if (c == 'c' && stack.size() == 1) {
+            if (c == 'c') {
                 const auto back = stack.back();
                 stack.pop_back();
                 stack.push_back(cos(back));
                 continue;
             }
 
-            if (c == 't' && stack.size() == 1) {
+            if (c == 't') {
                 const auto back = stack.back();
                 stack.pop_back();
                 stack.push_back(tan(back));
                 continue;
             }
 
-            if (c == '-' && stack.size() == 1) {
+            if (c == '-') {
                 const auto back = stack.back();
                 stack.pop_back();
                 stack.push_back(-back);
