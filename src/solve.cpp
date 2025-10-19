@@ -18,7 +18,7 @@ double solve_rpn(const vector<variant<int, double, char>>& rpn_expression) {
         else {
             char c = get<char>(token);
             
-            if (c == 's' && stack.size() == 1) {
+            if (c == 'r' && stack.size() == 1) {
                 const auto back = stack.back();
                 stack.pop_back();
                 stack.push_back(sqrt(back));
