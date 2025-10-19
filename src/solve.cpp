@@ -39,6 +39,27 @@ double solve_rpn(const vector<variant<int, double, char>>& rpn_expression) {
                 continue;
             }
 
+            if (c == 's' && stack.size() == 1) {
+                const auto back = stack.back();
+                stack.pop_back();
+                stack.push_back(sin(back));
+                continue;
+            }
+
+            if (c == 'c' && stack.size() == 1) {
+                const auto back = stack.back();
+                stack.pop_back();
+                stack.push_back(cos(back));
+                continue;
+            }
+
+            if (c == 't' && stack.size() == 1) {
+                const auto back = stack.back();
+                stack.pop_back();
+                stack.push_back(tan(back));
+                continue;
+            }
+
             if (c == '-' && stack.size() == 1) {
                 const auto back = stack.back();
                 stack.pop_back();
