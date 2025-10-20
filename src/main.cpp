@@ -5,8 +5,11 @@
 #include "../include/solve.h"
 
 #define COUT_PRECISION 10
+#define EPSILON 1e-8f
 
 using namespace std;
+
+bool isApproximatelyInteger(float x) { return abs(x - (int)x) <= EPSILON; }
 
 int main(int argc, char *argv[]) {
     if (argc == 1) {
@@ -18,7 +21,7 @@ int main(int argc, char *argv[]) {
     const vector<variant<int, double, char>> rpn_expression = convert_to_rpn(expression);
 
     const double result = solve_rpn(rpn_expression);
-    if ((int)result == result) { 
+    if (isApproximatelyInteger(result)) { 
         cout << (int)result;
     } else {
         cout.precision(COUT_PRECISION);
