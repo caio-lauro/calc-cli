@@ -21,14 +21,9 @@ int main(int argc, char *argv[]) {
     const vector<variant<int, double, char>> rpn_expression = convert_to_rpn(expression);
 
     const double result = solve_rpn(rpn_expression);
-    if (isApproximatelyInteger(result)) { 
-        cout << (int)result;
-    } else {
-        cout.precision(COUT_PRECISION);
-        cout << result;
-    }
 
-    cout << endl;
+    cout.precision(COUT_PRECISION);
+    cout << (isApproximatelyInteger(result) ? (int)result : result) << endl;
 
     return 0;
 }
