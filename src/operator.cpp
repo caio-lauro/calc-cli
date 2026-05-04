@@ -12,6 +12,8 @@ int get_level_of_priority(const char& c) {
             return 4;
         case 'l': case 'n':
             return 5;
+        case 'u':
+            return 6;
     }
 
     return 0;
@@ -37,9 +39,22 @@ bool is_tan(const string& expression, const size_t i) {
     return expression.find("tan", i) == i;
 }
 
+bool is_unary_minus(const string &expression, size_t i) {
+    if (expression[i] != '-') return false;
+    if (i == 0) return true;
+
+    char prev = expression[i - 1];
+    return prev == '(' || get_operator_type(expression, i - 1) != '\0';
+}
+
 char get_operator_type(const string& expression, const size_t i) {
     switch (expression[i]) {
-        case '+': case '-': case '*': case '/': case '%': case '^':
+        case '-':
+            if (is_unary_minus(expression, i)) {
+                return 'u';
+            }
+            return '-';
+        case '+': case '*': case '/': case '%': case '^':
             return expression[i];
         case 's':
             return is_sqrt(expression, i) ? 'r' : (is_sin(expression, i) ? 's' : '\0');

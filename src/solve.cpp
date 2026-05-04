@@ -60,7 +60,7 @@ double solve_rpn(const vector<variant<int, double, char>>& rpn_expression) {
                 continue;
             }
 
-            if (c == '-') {
+            if (c == 'u') {
                 const auto back = stack.back();
                 stack.pop_back();
                 stack.push_back(-back);
