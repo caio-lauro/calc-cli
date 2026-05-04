@@ -63,8 +63,10 @@ vector<variant<int, double, char>> convert_to_rpn(const string &expression) {
             }
 
             const int operator_priority = get_level_of_priority(operator_type);
-
-            while (!operations.empty() && get_level_of_priority(operations.back()) >= operator_priority) {
+            const int right_associative = (operator_type == 'u' || operator_type == '^') ? 1 : 0;
+            while (!operations.empty() && 
+                get_level_of_priority(operations.back()) >= operator_priority + right_associative) 
+            {
                 rpn_expression.push_back(operations.back());
                 operations.pop_back();
             }
