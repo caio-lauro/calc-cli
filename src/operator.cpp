@@ -6,14 +6,12 @@ int get_level_of_priority(const char& c) {
             return 1;
         case '*': case '/': case '%':
             return 2;
-        case '^': case 'r':
+        case '^': case 'r': case 'u':
             return 3;
         case 's': case 'c': case 't':
             return 4;
         case 'l': case 'n':
             return 5;
-        case 'u':
-            return 6;
     }
 
     return 0;
