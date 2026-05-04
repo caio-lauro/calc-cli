@@ -9,7 +9,7 @@
 
 using namespace std;
 
-bool isApproximatelyInteger(float x) { return abs(x - (int)x) <= EPSILON; }
+bool isApproximatelyInteger(double x) { return abs(x - (int)x) <= EPSILON; }
 
 int main(int argc, char *argv[]) {
     if (argc == 1) {
