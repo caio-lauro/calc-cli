@@ -10,6 +10,10 @@ pair<double, double> get_operands(vector<double>& stack) {
 
 double solve_rpn(const vector<variant<int, double, char>>& rpn_expression) {
     vector<double> stack;
+    auto apply_unary = [&](double (*fn)(double)) {
+        stack.back() = fn(stack.back());
+    };
+    
     for (const auto &token : rpn_expression) {
         if (holds_alternative<double>(token)) 
             stack.push_back(get<double>(token));
@@ -18,53 +22,28 @@ double solve_rpn(const vector<variant<int, double, char>>& rpn_expression) {
         else {
             char c = get<char>(token);
             
-            if (c == 'r') {
-                const auto back = stack.back();
-                stack.pop_back();
-                stack.push_back(sqrt(back));
-                continue;
-            }
-
-            if (c == 'l') {
-                const auto back = stack.back();
-                stack.pop_back();
-                stack.push_back(log10(back));
-                continue;
-            }
-            
-            if (c == 'n') {
-                const auto back = stack.back();
-                stack.pop_back();
-                stack.push_back(log(back));
-                continue;
-            }
-
-            if (c == 's') {
-                const auto back = stack.back();
-                stack.pop_back();
-                stack.push_back(sin(back));
-                continue;
-            }
-
-            if (c == 'c') {
-                const auto back = stack.back();
-                stack.pop_back();
-                stack.push_back(cos(back));
-                continue;
-            }
-
-            if (c == 't') {
-                const auto back = stack.back();
-                stack.pop_back();
-                stack.push_back(tan(back));
-                continue;
-            }
-
-            if (c == 'u') {
-                const auto back = stack.back();
-                stack.pop_back();
-                stack.push_back(-back);
-                continue;
+            switch (c) {
+                case 'r': 
+                    apply_unary(sqrt); 
+                    continue;
+                case 'l': 
+                    apply_unary(log10);
+                    continue;
+                case 'n': 
+                    apply_unary(log);
+                    continue;
+                case 's': 
+                    apply_unary(sin);
+                    continue;
+                case 'c': 
+                    apply_unary(cos);
+                    continue;
+                case 't': 
+                    apply_unary(tan);
+                    continue;
+                case 'u': 
+                    apply_unary([](double x){ return -x; }); 
+                    continue;
             }
 
             if (stack.size() < 2) {
@@ -95,6 +74,10 @@ double solve_rpn(const vector<variant<int, double, char>>& rpn_expression) {
     }
 
     if (stack.size() > 1) {
+        for (auto x : stack) {
+            cout << x << ' ';
+        }
+        cout << '\n';
         cout << "Something went wrong when trying to calculate the expression.\n";
         exit(1);
     }
